@@ -11,6 +11,86 @@
 </head>
 
 <body>
+    <div class="container-sm d-flex justify-content-center align-items-center vh-100">
+        <div class="container d-flex flex-column align-items-center w-100">
+            <form class="form  d-flex flex-column align-items-center g-3 needs-validation mb-5" novalidate>
+                <div class="col-auto w-100">
+                    <label for="validationCustom01" class="form-label">First name</label>
+                    <input value='' name="firstname" type="text" class="form-control firstname-input"
+                        id="validationCustom01" required>
+                    <div class="invalid-feedback">
+                        Please provide the Firstname.
+                    </div>
+                </div>
+                <div class="col-auto w-100">
+                    <label for="validationCustom02" class="form-label">Last name</label>
+                    <input name="lastname" type="text" class="form-control input-value lastname-input"
+                        id="validationCustom02" required>
+                    <div class="invalid-feedback">
+                        Please provide the Lastname.
+                    </div>
+                </div>
+                <div class="col-auto w-100">
+                    <label for="validationCustomUsername" class="form-label">Address</label>
+                    <div class="input-group has-validation">
+                        <input name="address" type="text" class="form-control input-value address-input"
+                            id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
+                        <div class="invalid-feedback">
+                            Please provide the Address.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-auto w-100">
+                    <label class="form-label" for="validationCustom03">Date</label>
+                    <div class="input-group">
+                        <input name="date" class="form-control date date-input" type="date" id="validationCustom03"
+                            placeholder="Address">
+                    </div>
+                </div>
+                <div class="col-auto w-100">
+                    <label for="validationCustom04" class="form-label">Gender</label>
+                    <select name="gender" class="form-select input-value gender-input" id="validationCustom04">
+                        <option selected disabled value="">Choose...</option>
+                        <option>Male</option>
+                        <option>Female</option>
+                    </select>
+                </div>
+                <div class="col-auto w-100">
+                    <label for="validationCustom05" class="form-label">Note</label>
+                    <textarea name="note" type="text" class="form-control input-value note-input"
+                        id="validationCustom05" maxlength="32"></textarea>
+                </div>
+                <div class="col-12 mt-3 w-100">
+                    <button class="btn btn-primary" type="submit">Submit form</button>
+                </div>
+            </form>
+            <div class="container max-width-25">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Firstname</th>
+                            <th scope="col">Lastname</th>
+                            <th scope="col">Address</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Gender</th>
+                            <th scope="col">Note</th>
+                        </tr>
+                    </thead>
+                    <tbody class="list-body">
+                        <tr class="data-list">
+                            <td class="firstname"></td>
+                            <td class="lastname"></td>
+                            <td class="address"></td>
+                            <td class="date"></td>
+                            <td class="gender"></td>
+                            <td class="note"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
