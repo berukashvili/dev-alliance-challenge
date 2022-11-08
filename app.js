@@ -1,13 +1,15 @@
 "use strict";
 
+// DOM Elements
 const table = document.querySelector(".table");
 const form = document.querySelector(".form");
+const tableList = document.querySelector(".list-body");
+const remove = document.querySelector(".remove");
+
 let count = 0;
 
 const handleForm = function (event) {
-  event.preventDefault();
-  count++;
-
+  // Values
   const firstName = document.getElementById("validationCustom01").value;
   const lastName = document.getElementById("validationCustom02").value;
   const address = document.getElementById("validationCustomUsername").value;
@@ -15,10 +17,29 @@ const handleForm = function (event) {
   const gender = document.getElementById("validationCustom04").value;
   const note = document.getElementById("validationCustom05").value;
 
+  event.preventDefault();
+  count++;
+
+  // Add Remove Button
+  const removeBtn = document.createElement("button");
+  removeBtn.innerHTML = "X";
+  removeBtn.setAttribute("class", "btn btn-primary");
+  remove.appendChild(removeBtn);
+
+  //Insert Data
   const row = table.insertRow(2);
 
   const countCell = row.insertCell(0);
   countCell.innerHTML = count;
+
+  const removeCurrent = () => {
+    const rowId = parseInt(countCell.innerHTML, 10);
+    if (rowId === count) {
+      tableList.deleteRow(rowId);
+    }
+  };
+
+  removeBtn.addEventListener("click", removeCurrent);
 
   const firstNameCell = row.insertCell(1);
   firstNameCell.innerHTML = firstName;
@@ -38,10 +59,13 @@ const handleForm = function (event) {
   const noteCell = row.insertCell(6);
   noteCell.innerHTML = note;
 
+  const removeCell = row.insertCell(7);
+  removeCell.appendChild(removeBtn);
 };
 
 form.addEventListener("submit", handleForm);
 
+// Validation
 (() => {
   const forms = document.querySelectorAll(".needs-validation");
 

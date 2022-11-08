@@ -10,10 +10,10 @@
         integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 </head>
 
-<body>
+<body class="bg-dark">
     <div class="container-sm d-flex justify-content-center align-items-center vh-100">
-        <div class="container d-flex flex-column align-items-center w-100">
-            <form class="form  d-flex flex-column align-items-center g-3 needs-validation mb-5" novalidate>
+        <div class="container d-flex align-items-start w-100">
+            <form class="form text-light  d-flex flex-column align-items-center g-3 needs-validation w-50" novalidate>
                 <div class="col-auto w-100">
                     <label for="validationCustom01" class="form-label">First name</label>
                     <input value='' name="firstname" type="text" class="form-control firstname-input"
@@ -64,8 +64,8 @@
                     <button class="btn btn-primary" type="submit">Submit form</button>
                 </div>
             </form>
-            <div class="container max-width-25">
-                <table class="table">
+            <div class="container d-flex justify-content-center max-width-25">
+                <table class="table table-fixed table-dark table-hover w-75">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
@@ -75,16 +75,18 @@
                             <th scope="col">Date</th>
                             <th scope="col">Gender</th>
                             <th scope="col">Note</th>
+                            <th scope="col"></th>
                         </tr>
                     </thead>
-                    <tbody class="list-body">
-                        <tr class="data-list">
+                    <tbody class="list-body table-group-divider">
+                        <tr class="data-list border-dark  d-none default-tab">
                             <td class="firstname"></td>
                             <td class="lastname"></td>
                             <td class="address"></td>
                             <td class="date"></td>
                             <td class="gender"></td>
                             <td class="note"></td>
+                            <td class="remove"></td>
                         </tr>
                     </tbody>
                 </table>
