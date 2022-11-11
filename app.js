@@ -3,7 +3,8 @@
 // DOM Elements
 const table = document.querySelector(".table");
 const form = document.querySelector(".form");
-const tableList = document.querySelector(".list-body");
+const tableBody = document.querySelector(".list-body");
+const rowBody = document.querySelector(".thread");
 const remove = document.querySelector(".remove");
 
 let dataArr = [];
@@ -24,21 +25,33 @@ const addData = (event) => {
     gender: document.getElementById("validationCustom04").value,
     note: document.getElementById("validationCustom05").value,
   });
-  localStorage.setItem("localRow", JSON.stringify(dataArr));
-  showData();
+
+  for (let i = 0; i < dataArr.length; i++) {
+    localStorage.setItem(`${i}`, JSON.stringify(dataArr[i]));
+  }
+
+  // localStorage.setItem(`localData`, JSON.stringify(dataArr));
 };
 
-// Parse And Add Local data to Array
+// Parse And Add Local data Into Array
 const getData = () => {
-  const rowData = localStorage.getItem("localRow");
-  if (rowData != null) {
-    dataArr = JSON.parse(rowData);
+  for (let i = 0; i < localStorage.length; i++) {
+    const rowData = localStorage.getItem(`${i}`);
+    if (rowData != null) {
+      dataArr.push(JSON.parse(rowData));
+    }
   }
+  // const rowData = localStorage.getItem("localData");
+  // if (rowData != null) {
+  //   dataArr = JSON.parse(rowData);
+  // }
 };
 
 // Maintain and Show Entered Data
 const showData = () => {
   getData();
+
+  //Create and Append Remove Button
 
   var num = table.rows.length;
   while (--num) {
@@ -69,20 +82,23 @@ const showData = () => {
     const noteCell = row.insertCell(6);
     noteCell.innerHTML = dataArr[i].note;
 
-    //Create and Append Remove Button
     const removeBtn = document.createElement("button");
     removeBtn.innerHTML = "X";
-    removeBtn.setAttribute("class", "btn btn-primary");
+    removeBtn.classList.add("btn", "btn-primary");
     remove.appendChild(removeBtn);
+
+    //Remove Item
+    const removeRow = () => {
+      for (let i = 0; i < row.children.length; i++) {
+        // const currentRow = removeBtn.parentNode.parentNode;
+        // currentRow.remove();
+      }
+    };
 
     const removeCell = row.insertCell(7);
     removeCell.appendChild(removeBtn);
 
-    const removeItem = () => {
-      console.log("delete");
-    };
-
-    removeBtn.addEventListener("click", removeItem);
+    removeBtn.addEventListener("click", removeRow);
   }
 };
 
