@@ -14,6 +14,7 @@ let count = 0;
 const addData = (event) => {
   event.preventDefault();
   count++;
+
   getData();
 
   dataArr.push({
@@ -29,76 +30,64 @@ const addData = (event) => {
   for (let i = 0; i < dataArr.length; i++) {
     localStorage.setItem(`${i}`, JSON.stringify(dataArr[i]));
   }
-
-  // localStorage.setItem(`localData`, JSON.stringify(dataArr));
+  showData();
 };
 
 // Parse And Add Local data Into Array
-const getData = () => {
-  for (let i = 0; i < localStorage.length; i++) {
-    const rowData = localStorage.getItem(`${i}`);
-    if (rowData != null) {
-      dataArr.push(JSON.parse(rowData));
-    }
-  }
-  // const rowData = localStorage.getItem("localData");
-  // if (rowData != null) {
-  //   dataArr = JSON.parse(rowData);
-  // }
-};
+const getData = () => {};
 
 // Maintain and Show Entered Data
 const showData = () => {
   getData();
 
-  //Create and Append Remove Button
-
-  var num = table.rows.length;
+  let num = table.rows.length;
   while (--num) {
     table.deleteRow(num);
   }
 
-  for (let i = 0; i < dataArr.length; i++) {
-    const row = table.insertRow(1);
+  for (let i = 0; i < localStorage.length; i++) {
+    const localItem = JSON.parse(localStorage.getItem(`${i}`));
+    if (localItem != null) {
+      const row = table.insertRow(1);
 
-    const countCell = row.insertCell(0);
-    countCell.innerHTML = dataArr[i].count;
+      const countCell = row.insertCell(0);
+      countCell.innerHTML = localItem.count;
 
-    const firstNameCell = row.insertCell(1);
-    firstNameCell.innerHTML = dataArr[i].firstName;
+      const firstNameCell = row.insertCell(1);
+      firstNameCell.innerHTML = localItem.firstName;
 
-    const lastNameCell = row.insertCell(2);
-    lastNameCell.innerHTML = dataArr[i].lastName;
+      const lastNameCell = row.insertCell(2);
+      lastNameCell.innerHTML = localItem.lastName;
 
-    const addressCell = row.insertCell(3);
-    addressCell.innerHTML = dataArr[i].address;
+      const addressCell = row.insertCell(3);
+      addressCell.innerHTML = localItem.address;
 
-    const dateCell = row.insertCell(4);
-    dateCell.innerHTML = dataArr[i].date;
+      const dateCell = row.insertCell(4);
+      dateCell.innerHTML = localItem.date;
 
-    const genderCell = row.insertCell(5);
-    genderCell.innerHTML = dataArr[i].gender;
+      const genderCell = row.insertCell(5);
+      genderCell.innerHTML = localItem.gender;
 
-    const noteCell = row.insertCell(6);
-    noteCell.innerHTML = dataArr[i].note;
+      const noteCell = row.insertCell(6);
+      noteCell.innerHTML = localItem.note;
 
-    const removeBtn = document.createElement("button");
-    removeBtn.innerHTML = "X";
-    removeBtn.classList.add("btn", "btn-primary");
-    remove.appendChild(removeBtn);
+      //Create and Append Remove Button
+      const removeBtn = document.createElement("button");
+      removeBtn.innerHTML = "X";
+      removeBtn.classList.add("btn", "btn-primary");
+      remove.appendChild(removeBtn);
 
-    //Remove Item
-    const removeRow = () => {
-      for (let i = 0; i < row.children.length; i++) {
-        // const currentRow = removeBtn.parentNode.parentNode;
-        // currentRow.remove();
-      }
-    };
+      //Remove Item
+      const removeRow = () => {
+        localStorage.removeItem(`${i}`);
+        showData();
+      };
 
-    const removeCell = row.insertCell(7);
-    removeCell.appendChild(removeBtn);
+      const removeCell = row.insertCell(7);
+      removeCell.appendChild(removeBtn);
 
-    removeBtn.addEventListener("click", removeRow);
+      removeBtn.addEventListener("click", removeRow);
+    }
   }
 };
 
