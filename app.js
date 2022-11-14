@@ -2,36 +2,37 @@
 
 // DOM Elements
 const form = document.querySelector(".form");
-const table = document.querySelector(".table");
+const table = document.getElementById("rows");
 const submitBtn = document.querySelector(".submit-btn");
 const tableList = document.querySelector(".list-body");
 const remove = document.querySelector(".remove");
 
 let dataArr = [];
-let count = 0;
+let rowCount = 0;
 
-const localInit = function () {
+//Show Entries
+const showData = () => {
+  table.innerHTML = "";
   if (localStorage.localData) {
     dataArr = JSON.parse(localStorage.localData);
-    for (let i = 0; i < dataArr.length; i++) {
-      makeRow(
+    rowCount++;
+    dataArr.forEach((item, i) => {
+      addRow(
         i,
-        dataArr[i].count,
-        dataArr[i].firstName,
-        dataArr[i].lastName,
-        dataArr[i].address,
-        dataArr[i].date,
-        dataArr[i].gender,
-        dataArr[i].note
+        item.firstName,
+        item.lastName,
+        item.address,
+        item.date,
+        item.gender,
+        item.note
       );
-    }
+    });
   }
 };
 
-const handleInput = function (event) {
+const handleValues = (event) => {
   event.preventDefault();
-
-  const rowCount = count;
+  //Values
   const firstName = document.getElementById("validationCustom01").value;
   const lastName = document.getElementById("validationCustom02").value;
   const address = document.getElementById("validationCustomUsername").value;
@@ -40,7 +41,6 @@ const handleInput = function (event) {
   const note = document.getElementById("validationCustom05").value;
 
   const dataObj = {
-    count: count,
     firstName: firstName,
     lastName: lastName,
     address: address,
@@ -50,83 +50,71 @@ const handleInput = function (event) {
   };
 
   dataArr.push(dataObj);
-
   localStorage.localData = JSON.stringify(dataArr);
-
-  makeRow(i, count, firstName, lastName, address, date, gender, note);
-
-  // document.getElementById("validationCustom01").value = "";
-  // document.getElementById("validationCustom02").value = "";
-  // document.getElementById("validationCustomUsername").value = "";
-  // document.getElementById("validationCustom03").value = "";
-  // document.getElementById("validationCustom04").value = "";
-  // document.getElementById("validationCustom05").value = "";
+  showData();
+  rowCount++;
 };
 
-const makeRow = (
+//Add Row
+const addRow = function (
   index,
-  count,
   firstName,
   lastName,
   address,
   date,
   gender,
   note
-) => {
+) {
+  //Add Row Cells
   const row = table.insertRow();
-
   const countCell = row.insertCell(0);
-  countCell.innerHTML = count;
-
   const firstNameCell = row.insertCell(1);
-  firstNameCell.innerHTML = firstName;
-
   const lastNameCell = row.insertCell(2);
-  lastNameCell.innerHTML = lastName;
-
   const addressCell = row.insertCell(3);
-  addressCell.innerHTML = address;
-
   const dateCell = row.insertCell(4);
-  dateCell.innerHTML = date;
-
   const genderCell = row.insertCell(5);
-  genderCell.innerHTML = gender;
-
   const noteCell = row.insertCell(6);
+  const actionCell = row.insertCell(7);
+
+  //Set Values Of Cells
+  countCell.innerHTML = rowCount;
+  firstNameCell.innerHTML = firstName;
+  lastNameCell.innerHTML = lastName;
+  addressCell.innerHTML = address;
+  dateCell.innerHTML = date;
+  genderCell.innerHTML = gender;
   noteCell.innerHTML = note;
-
-  const removeCell = row.insertCell(7);
-  removeCell.innerHTML =
-    '<button class="btn btn-primary remove-btn">Remove</Button>';
+  actionCell.innerHTML = `<button class="btn btn-primary remove-btn" onclick="removeRow(${index})">Remove</Button>`;
 };
 
-const removeRow = function (index) {
+//Remove Row
+function removeRow(index) {
   table.deleteRow(index);
-};
+  dataArr.splice(index, 1);
+  localStorage.localData = JSON.stringify(dataArr);
+  showData();
+}
 
-// (
-//   // Validation
-//   () => {
-//     const forms = document.querySelectorAll(".needs-validation");
+//Events
+form.addEventListener("submit", handleValues);
+window.addEventListener("load", showData);
 
-//     Array.from(forms).forEach((form) => {
-//       form.addEventListener(
-//         "submit",
-//         (event) => {
-//           if (!form.checkValidity()) {
-//             event.preventDefault();
-//             event.stopPropagation();
-//           }
+// Validation
+(() => {
+  const forms = document.querySelectorAll(".needs-validation");
 
-//           form.classList.add("was-validated");
-//         },
-//         false
-//       );
-//     });
-//   }
-// )();
+  Array.from(forms).forEach((form) => {
+    form.addEventListener(
+      "submit",
+      (event) => {
+        if (!form.checkValidity()) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
 
-form.addEventListener("submit", handleInput);
-
-const submitData = [];
+        form.classList.add("was-validated");
+      },
+      false
+    );
+  });
+})();

@@ -16,7 +16,7 @@
             <form class="form-checks form text-light  d-flex flex-column align-items-center g-3 needs-validation  w-50"
                 novalidate>
                 <div class="col-auto w-100">
-                    <label for="validationCustom01" class="form-label">First name</label>
+                    <label for="validationCustom01" class="form-label firstname">First name</label>
                     <input value='' name="firstname" type="text" class="form-control firstname-input"
                         id="validationCustom01" required>
                     <div class="invalid-feedback">
@@ -24,7 +24,7 @@
                     </div>
                 </div>
                 <div class="col-auto w-100">
-                    <label for="validationCustom02" class="form-label">Last name</label>
+                    <label for="validationCustom02" class="form-label lastname">Last name</label>
                     <input name="lastname" type="text" class="form-control input-value lastname-input"
                         id="validationCustom02" required>
                     <div class="invalid-feedback">
@@ -32,7 +32,7 @@
                     </div>
                 </div>
                 <div class="col-auto w-100">
-                    <label for="validationCustomUsername" class="form-label">Address</label>
+                    <label for="validationCustomUsername" class="form-label address">Address</label>
                     <div class="input-group has-validation">
                         <input name="address" type="text" class="form-control input-value address-input"
                             id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
@@ -42,7 +42,7 @@
                     </div>
                 </div>
                 <div class="col-auto w-100">
-                    <label class="form-label" for="validationCustom03">Date</label>
+                    <label class="form-label date" for="validationCustom03">Date</label>
                     <div class="input-group">
                         <input name="date" class="form-control date date-input" type="date" id="validationCustom03"
                             placeholder="Address">
@@ -50,14 +50,14 @@
                 </div>
                 <div class="col-auto w-100">
                     <label for="validationCustom04" class="form-label">Gender</label>
-                    <select name="gender" class="form-select input-value gender-input" id="validationCustom04">
+                    <select name="gender" class="form-select input-value gender-input gender" id="validationCustom04">
                         <option selected disabled value="">Choose...</option>
                         <option>Male</option>
                         <option>Female</option>
                     </select>
                 </div>
                 <div class="col-auto w-100">
-                    <label for="validationCustom05" class="form-label">Note</label>
+                    <label for="validationCustom05" class="form-label note">Note</label>
                     <textarea name="note" type="text" class="form-control input-value note-input"
                         id="validationCustom05" maxlength="32"></textarea>
                 </div>
@@ -79,6 +79,7 @@
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
+                    <tbody id="rows"></tbody>
                 </table>
             </div>
         </div>
