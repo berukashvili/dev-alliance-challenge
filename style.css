@@ -1,0 +1,14 @@
+@media only screen and (max-width: 990px) {
+  body {
+    font-size: 14px !important;
+  }
+
+  .container {
+    flex-direction: column;
+    align-items: center !important;
+  }
+
+  .col-12 {
+    margin-bottom: 70px;
+  }
+}
