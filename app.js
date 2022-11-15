@@ -8,17 +8,17 @@ const tableList = document.querySelector(".list-body");
 const remove = document.querySelector(".remove");
 
 let dataArr = [];
-let rowCount = 0;
+let counter = 1;
 
 //Show Entries
 const showData = () => {
   table.innerHTML = "";
   if (localStorage.localData) {
     dataArr = JSON.parse(localStorage.localData);
-    rowCount++;
-    dataArr.forEach((item, i) => {
+    dataArr.forEach((item, index) => {
       addRow(
-        i,
+        index,
+        item.count,
         item.firstName,
         item.lastName,
         item.address,
@@ -32,6 +32,7 @@ const showData = () => {
 
 const handleValues = (event) => {
   event.preventDefault();
+
   //Values
   const firstName = document.getElementById("validationCustom01").value;
   const lastName = document.getElementById("validationCustom02").value;
@@ -41,6 +42,7 @@ const handleValues = (event) => {
   const note = document.getElementById("validationCustom05").value;
 
   const dataObj = {
+    count: counter++,
     firstName: firstName,
     lastName: lastName,
     address: address,
@@ -52,12 +54,12 @@ const handleValues = (event) => {
   dataArr.push(dataObj);
   localStorage.localData = JSON.stringify(dataArr);
   showData();
-  rowCount++;
 };
 
 //Add Row
 const addRow = function (
   index,
+  counter,
   firstName,
   lastName,
   address,
@@ -77,7 +79,7 @@ const addRow = function (
   const actionCell = row.insertCell(7);
 
   //Set Values Of Cells
-  countCell.innerHTML = rowCount;
+  countCell.innerHTML = counter;
   firstNameCell.innerHTML = firstName;
   lastNameCell.innerHTML = lastName;
   addressCell.innerHTML = address;
@@ -96,7 +98,7 @@ function removeRow(index) {
 }
 
 //Events
-form.addEventListener("submit", handleValues);
+
 window.addEventListener("load", showData);
 
 // Validation
@@ -110,6 +112,9 @@ window.addEventListener("load", showData);
         if (!form.checkValidity()) {
           event.preventDefault();
           event.stopPropagation();
+        } else if (form.checkValidity) {
+          event.preventDefault();
+          form.addEventListener("submit", handleValues);
         }
 
         form.classList.add("was-validated");
